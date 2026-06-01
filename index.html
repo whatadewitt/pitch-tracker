@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b3d2e" />
+  <title>Pitch Tracker</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Pitch Tracker" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>⚾ Pitch Tracker</h1>
+  </header>
+
+  <main id="view" class="view"><!-- rendered by app.js --></main>
+
+  <nav class="tabbar" id="tabbar">
+    <button class="tab" data-tab="track"><span class="tab-icon">🎯</span><span>Track</span></button>
+    <button class="tab" data-tab="status"><span class="tab-icon">📋</span><span>Status</span></button>
+    <button class="tab" data-tab="roster"><span class="tab-icon">👥</span><span>Roster</span></button>
+    <button class="tab" data-tab="rules"><span class="tab-icon">⚙️</span><span>Rules</span></button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
