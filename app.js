@@ -139,7 +139,10 @@
     else if (activeTab === 'rules') viewEl.innerHTML = renderRules();
 
     document.querySelectorAll('.tab').forEach(function (t) {
-      t.classList.toggle('active', t.dataset.tab === activeTab);
+      var on = t.dataset.tab === activeTab;
+      t.classList.toggle('active', on);
+      if (on) t.setAttribute('aria-current', 'page');
+      else t.removeAttribute('aria-current');
     });
     wireView();
   }
@@ -172,7 +175,10 @@
       var av = availability(p.id, today);
       var cls = 'chip' + (p.id === selectedId ? ' selected' : '') + (av.available ? '' : ' resting');
       var dot = '<span class="dot ' + (av.available ? 'ok' : 'rest') + '"></span>';
-      return '<button class="' + cls + '" data-pick="' + p.id + '">' + dot + esc(p.name) + '</button>';
+      var tag = av.available ? '' : '<span class="chip-tag">rest</span>';
+      var label = esc(p.name) + ', ' + (av.available ? 'available' : 'resting');
+      return '<button class="' + cls + '" data-pick="' + p.id + '" aria-pressed="' +
+        (p.id === selectedId) + '" aria-label="' + label + '">' + dot + esc(p.name) + tag + '</button>';
     }).join('');
 
     var counterBlock = '';
@@ -193,13 +199,13 @@
         '<div class="card">' +
           '<div class="counter">' +
             '<div class="name">' + esc(player ? player.name : '') + '</div>' +
-            '<div class="big-num" id="bigNum">' + count + '</div>' +
+            '<div class="big-num" id="bigNum" role="status" aria-live="polite" aria-label="' + count + ' pitches">' + count + '</div>' +
             '<div class="label">Pitches</div>' +
           '</div>' +
           note +
           '<div class="count-controls">' +
-            '<button class="big minus" data-step="-1">–</button>' +
-            '<button class="big plus" data-step="1">+</button>' +
+            '<button class="big minus" data-step="-1" aria-label="Subtract a pitch">–</button>' +
+            '<button class="big plus" data-step="1" aria-label="Add a pitch">+</button>' +
           '</div>' +
           '<div class="row mt">' +
             '<button class="btn block" id="saveOuting">Save outing</button>' +
@@ -257,7 +263,7 @@
           return '<li>' +
             '<div class="grow"><div class="name">' + esc(p ? p.name : 'Unknown') + '</div>' +
             '<div class="sub">' + o.pitches + ' pitches · ' + prettyDate(o.date) + '</div></div>' +
-            '<button class="icon-btn" data-del-outing="' + o.id + '" title="Delete">🗑</button>' +
+            '<button class="icon-btn" data-del-outing="' + o.id + '" title="Delete outing" aria-label="Delete outing">🗑</button>' +
           '</li>';
         }).join('') +
       '</ul>';
@@ -274,8 +280,8 @@
       return '<li>' +
         '<div class="grow"><div class="name">' + esc(p.name) + '</div>' +
         '<div class="sub">' + totalPitches(p.id) + ' total pitches logged</div></div>' +
-        '<button class="icon-btn" data-edit="' + p.id + '" title="Rename">✏️</button>' +
-        '<button class="icon-btn" data-del-player="' + p.id + '" title="Remove">🗑</button>' +
+        '<button class="icon-btn" data-edit="' + p.id + '" title="Rename" aria-label="Rename ' + esc(p.name) + '">✏️</button>' +
+        '<button class="icon-btn" data-del-player="' + p.id + '" title="Remove" aria-label="Remove ' + esc(p.name) + '">🗑</button>' +
       '</li>';
     }).join('');
 
@@ -300,9 +306,9 @@
     var rows = sorted.map(function (r, i) {
       return '<div class="rule-row" data-rule="' + i + '">' +
         '<span class="unit">≥</span>' +
-        '<input type="number" inputmode="numeric" min="1" value="' + r.minPitches + '" data-field="minPitches" />' +
+        '<input type="number" inputmode="numeric" min="1" value="' + r.minPitches + '" data-field="minPitches" aria-label="Minimum pitches" />' +
         '<span class="unit">pitches →</span>' +
-        '<input type="number" inputmode="numeric" min="0" value="' + r.restDays + '" data-field="restDays" />' +
+        '<input type="number" inputmode="numeric" min="0" value="' + r.restDays + '" data-field="restDays" aria-label="Rest days" />' +
         '<span class="unit">days rest</span>' +
         '<button class="icon-btn" data-del-rule="' + i + '" title="Remove">🗑</button>' +
       '</div>';

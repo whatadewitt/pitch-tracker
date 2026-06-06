@@ -1,6 +1,6 @@
 /* Service worker: caches the app shell so Pitch Tracker works offline and
  * launches instantly when installed to the home screen. */
-var CACHE = 'pitch-tracker-v1';
+var CACHE = 'pitch-tracker-v2';
 var ASSETS = [
   './',
   './index.html',
