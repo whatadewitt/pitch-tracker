@@ -30,18 +30,25 @@ data is stored on your device and persists across sessions.
 
 ## Use it on your phone
 
+It's live here:
+
+### **https://whatadewitt.github.io/pitch-tracker/**
+
 It's a Progressive Web App, so you can install it to your home screen and it
-works offline.
+works offline:
 
-### Easiest: host it free on GitHub Pages
+- **iPhone / Safari:** tap **Share → Add to Home Screen**
+- **Android / Chrome:** tap **⋮ → Add to Home screen**
 
-1. In this repo on GitHub: **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to *Deploy from a branch*,
-   pick the branch (e.g. `main`) and the `/ (root)` folder, then **Save**.
-3. After a minute, GitHub gives you a URL like
-   `https://<your-user>.github.io/pitch-tracker/`.
-4. Open that URL on your phone. In Safari (iOS) tap **Share → Add to Home
-   Screen**; in Chrome (Android) use **⋮ → Add to Home screen**.
+It gets the baseball icon and opens full-screen, like a native app.
+
+### How it's hosted / deployed
+
+The site is published with **GitHub Pages** via the GitHub Actions workflow in
+`.github/workflows/deploy-pages.yml`. Every push to the **`main`** branch
+re-runs that workflow and republishes automatically — there is no build step
+and nothing to do manually. (Pages requires the repo to be public on the free
+plan; the repo contains only the generic app code — no team or player data.)
 
 ### Run locally to try it
 
