@@ -95,7 +95,7 @@ body {
 .section-title { margin: 4px 2px 10px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; }
 
 /* Buttons */
-button { font-family: inherit; }
+button { font-family: inherit; touch-action: manipulation; }
 .btn {
   display: inline-flex;
   align-items: center;
