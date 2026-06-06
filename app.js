@@ -153,6 +153,19 @@
     });
   }
 
+  // Inline stroke icons (consistent 24x24 family, currentColor).
+  function svg(name) {
+    var paths = {
+      pencil: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+      trash: '<path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
+             '<path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>',
+      pause: '<rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/>'
+    };
+    return '<svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" ' +
+      'stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" ' +
+      'aria-hidden="true">' + (paths[name] || '') + '</svg>';
+  }
+
   function sortedPlayers() {
     return state.players.slice().sort(function (a, b) {
       return a.name.localeCompare(b.name);
@@ -191,7 +204,7 @@
         else {
           var availOn = prettyDate(addDays(today, rest + 1));
           var cls = rest >= 3 ? 'over' : 'warn';
-          note = '<div class="rest-note ' + cls + '">⏸ ' + rest + ' day' + (rest === 1 ? '' : 's') +
+          note = '<div class="rest-note ' + cls + '">' + svg('pause') + ' ' + rest + ' day' + (rest === 1 ? '' : 's') +
                  ' rest → next eligible ' + availOn + '</div>';
         }
       }
@@ -209,7 +222,7 @@
           '</div>' +
           '<div class="row mt">' +
             '<button class="btn block" id="saveOuting">Save outing</button>' +
-            '<button class="btn secondary" id="cancelLive" style="flex:0 0 auto">Clear</button>' +
+            '<button class="btn secondary" id="cancelLive" style="flex:0 0 auto">Discard</button>' +
           '</div>' +
         '</div>';
     }
@@ -263,7 +276,7 @@
           return '<li>' +
             '<div class="grow"><div class="name">' + esc(p ? p.name : 'Unknown') + '</div>' +
             '<div class="sub">' + o.pitches + ' pitches · ' + prettyDate(o.date) + '</div></div>' +
-            '<button class="icon-btn" data-del-outing="' + o.id + '" title="Delete outing" aria-label="Delete outing">🗑</button>' +
+            '<button class="icon-btn" data-del-outing="' + o.id + '" title="Delete outing" aria-label="Delete outing">' + svg('trash') + '</button>' +
           '</li>';
         }).join('') +
       '</ul>';
@@ -280,8 +293,8 @@
       return '<li>' +
         '<div class="grow"><div class="name">' + esc(p.name) + '</div>' +
         '<div class="sub">' + totalPitches(p.id) + ' total pitches logged</div></div>' +
-        '<button class="icon-btn" data-edit="' + p.id + '" title="Rename" aria-label="Rename ' + esc(p.name) + '">✏️</button>' +
-        '<button class="icon-btn" data-del-player="' + p.id + '" title="Remove" aria-label="Remove ' + esc(p.name) + '">🗑</button>' +
+        '<button class="icon-btn" data-edit="' + p.id + '" title="Rename" aria-label="Rename ' + esc(p.name) + '">' + svg('pencil') + '</button>' +
+        '<button class="icon-btn" data-del-player="' + p.id + '" title="Remove" aria-label="Remove ' + esc(p.name) + '">' + svg('trash') + '</button>' +
       '</li>';
     }).join('');
 
@@ -310,7 +323,7 @@
         '<span class="unit">pitches →</span>' +
         '<input type="number" inputmode="numeric" min="0" value="' + r.restDays + '" data-field="restDays" aria-label="Rest days" />' +
         '<span class="unit">days rest</span>' +
-        '<button class="icon-btn" data-del-rule="' + i + '" title="Remove">🗑</button>' +
+        '<button class="icon-btn" data-del-rule="' + i + '" title="Remove rule" aria-label="Remove rule">' + svg('trash') + '</button>' +
       '</div>';
     }).join('');
 

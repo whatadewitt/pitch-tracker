@@ -40,6 +40,8 @@ body {
   z-index: 10;
 }
 .app-header h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.2px; }
+.brand { display: inline-flex; align-items: center; gap: 9px; }
+.brand-mark { color: var(--accent); flex: none; }
 
 .view {
   flex: 1;
@@ -76,8 +78,9 @@ body {
   gap: 3px;
   cursor: pointer;
 }
-.tab .tab-icon { font-size: 22px; line-height: 1; }
+.tab .tab-icon { width: 24px; height: 24px; }
 .tab.active { color: var(--accent); }
+.tab { transition: color 0.15s ease; }
 
 /* Cards */
 .card {
@@ -107,6 +110,7 @@ button { font-family: inherit; }
   font-weight: 600;
   cursor: pointer;
 }
+.btn { transition: filter 0.15s ease, background 0.15s ease, border-color 0.15s ease; }
 .btn:active { transform: scale(0.98); }
 .btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
 .btn.danger { background: transparent; color: var(--red); border: 1px solid var(--red); }
@@ -272,6 +276,23 @@ label.field span { display: block; font-size: 13px; color: var(--muted); margin-
 
 .spacer { height: 6px; }
 .mt { margin-top: 12px; }
+
+.ico { display: block; flex: none; }
+.rest-note .ico { display: inline-block; vertical-align: -4px; }
+
+.chip, .icon-btn { transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease; }
+
+/* Pointer (desktop) hover affordances; excluded on touch to avoid sticky states */
+@media (hover: hover) {
+  .btn:hover { filter: brightness(1.08); }
+  .btn.secondary:hover { background: var(--border); filter: none; }
+  .btn.danger:hover { background: rgba(224, 83, 61, 0.12); filter: none; }
+  .chip:hover { border-color: var(--muted); }
+  .count-controls .big.plus:hover { filter: brightness(1.08); }
+  .count-controls .big.minus:hover { background: var(--border); }
+  .icon-btn:hover { background: rgba(255, 255, 255, 0.07); color: var(--text); }
+  .tab:hover { color: var(--text); }
+}
 
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
