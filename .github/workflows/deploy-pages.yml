@@ -6,7 +6,7 @@ name: Deploy to GitHub Pages
 # required up front.
 on:
   push:
-    branches: ["claude/baseball-pitch-tracker-KyzDJ"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
