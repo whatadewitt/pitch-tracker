@@ -99,6 +99,22 @@ node -e "JSON.parse(require('fs').readFileSync('manifest.json'))"
   host_not_allowed`). That is a sandbox limitation, not a site problem — verify
   the live site from a normal browser/phone instead of curling it from here.
 
+## Tooling: the `impeccable` design skill
+
+`.claude/skills/impeccable/` is a **vendored** copy of the `impeccable` skill
+(from `pbakaus/impeccable`, Apache 2.0) plus its helper agent in
+`.claude/agents/`. It's vendored rather than installed as a plugin because
+Claude Code on the web has no `/plugin` command and doesn't reliably auto-install
+marketplace plugins; committed `.claude/skills/` load automatically. See
+`.claude/skills/impeccable/VENDORED.md` for provenance and update instructions.
+
+Invoke it as a user-invocable skill, e.g. `/impeccable polish`, `/impeccable
+audit`, `/impeccable critique`, `/impeccable init`. It's a natural fit for
+improving this app's UI (`index.html`, `styles.css`). Some subcommands shell out
+to `node .claude/skills/impeccable/scripts/*.mjs` or `npx impeccable`; its
+browser-based "live" features won't work in a sandboxed/headless environment, but
+the file/text-based design commands do.
+
 ## Possible next steps (not yet built)
 
 - Multi-device sync (would require a backend — currently per-device only).
