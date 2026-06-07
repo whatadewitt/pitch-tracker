@@ -29,6 +29,13 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* Keep real text fields selectable/editable */
+input, textarea, select {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .app-header {
